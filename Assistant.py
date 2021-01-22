@@ -1,9 +1,12 @@
-import pyttsx3  # pip install pyttsx3
+import pyttsx3
+import speech_recognition as sr
 import datetime
 import wikipedia
+import webbrowser
+import os
 
 engine = pyttsx3.init('sapi5')
-voices = engine.getProperty('voices')  #getting details of current voice
+voices = engine.getProperty('voices')
 # print(voices[1].id)
 engine.setProperty('voice', voices[1].id)
 
@@ -13,7 +16,7 @@ def speak(audio):
 This method will allow Zira to speak, It take our voice as an argument
     """
     engine.say(audio)
-    engine.runAndWait() #Without this command, speech will not be audible to us.
+    engine.runAndWait()
 
 
 def greetUser():
@@ -70,6 +73,38 @@ if __name__ == "__main__":
             speak("According to Wikipedia")
             print(results)
             speak(results)
-            
-        elif 'quit' in query:
+
+        elif 'open youtube' in query:
+            webbrowser.open("youtube.com")
+
+        elif 'open google' in query:
+            webbrowser.open("google.com")
+
+        elif 'open university website' in query:
+            webbrowser.open("bahria.edu.pk")
+
+        elif 'open stack overflow' or 'open stackoverflow' in query:
+            speak("Here you go to Stack Over flow Happy coding")
+            webbrowser.open("stackoverflow.com")
+
+        elif 'play music' in query:
+            music_dir = 'F:\\MP3'
+            songs = os.listdir(music_dir)
+            print(songs)
+            os.startfile(os.path.join(music_dir, songs[0]))
+
+        elif 'the time' in query:
+            strTime = datetime.datetime.now().strftime("%H:%M:%S")
+            speak(f"Sir, the time is {strTime}")
+
+        elif 'open chrome' in query:
+            codePath = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+            os.startfile(codePath)
+
+        elif 'open git' in query:
+            codePath = "C:\\Program Files\\Git\\git-bash.exe"
+            os.startfile(codePath)
+
+        elif 'quit' or 'shut' in query:
+            speak("Thanks for giving me your time")
             exit()
