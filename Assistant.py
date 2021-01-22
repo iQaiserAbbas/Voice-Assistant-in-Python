@@ -33,6 +33,29 @@ This method will always greet the user in start.
     speak("My name is Zira, I am your voice assistant. Please tell me how may I help you?")
 
 
+def takeCommand():
+    """
+    It takes microphone input from the user and returns string output, return None in case of any problem
+    """
+
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("how can I help?")
+        r.pause_threshold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Recognizing...")
+        query = r.recognize_google(audio, language='en-UK')
+        print(f"User said: {query}\n")
+
+    except Exception as e:
+        # print(e)    hiding error from console
+        print("Speak it again please...")
+        return "None"
+    return query
+
+
 if __name__ == "__main__":
     greetUser()
     while True:
